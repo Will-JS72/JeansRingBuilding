@@ -1,0 +1,17 @@
+%%Matlab code to send a ‘1’ on the serial line to the Arduino when the user presses    % ENTER. Author TB 11.08.2021
+
+%Clear ports
+if ~isempty(instrfind)
+fclose(instrfind);
+delete(instrfind);
+end
+
+%set up and open serial port
+arduino = serialport("/dev/tty.usbmodem14401", 9600); %you might need to change the COM port
+
+%% LOADING SCREEN
+input("Press enter to begin.");
+write(arduino,1,"uint8"); %We tell arduino 1, so it starts code
+read(arduino,20, "string");
+
+clear arduino;
